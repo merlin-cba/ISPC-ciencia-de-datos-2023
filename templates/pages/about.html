@@ -1,0 +1,12 @@
+{% extends './template/layout.html' %}
+
+{% block title %}{{ data.titulo }}{% endblock %}
+
+{% block content %}
+<h1>{{ data.titulo }}</h1>
+<p>{{ data.descripcion }}</p>
+<a href="{{ data.link_repo }}" target="_blank" rel="noopener">
+    <i class="bi bi-github"></i> Repositorio en GitHub
+</a>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+<!-- about.html -->
+{% extends './template/layout.html' %}
+
+{% block content %}
+
+<div class="container">
+  <h1 class="text-center">Sobre nosotros</h1>
+  <p class="text-center">Somos un equipo de cuatro personas apasionadas por la tecnología y el desarrollo de software.</p>
+
+  <div class="row mt-5">
+    {% for member in team_members %}
+    <div class="col-md-6">
+      <div class="card">
+        <img class="card-img-top" src="{{ url_for('static', filename='img/team/' + member['image']) }}" alt="{{ member['name'] }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ member['name'] }}</h5>
+          <p class="card-text">{{ member['role'] }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+{% endblock %}
