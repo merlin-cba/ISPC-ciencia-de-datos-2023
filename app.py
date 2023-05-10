@@ -18,17 +18,35 @@ def after_request(response):
 def index():
     data = {
         'titulo': 'Proyecto ISPC - Grupo 3', # Titulo de la pestaña
-        'bienvenida': '¡Saludos!'
+        'bienvenida': 'Objetivos'
         }
     return render_template('index.html', data=data)
 
-@app.route('/EDA')
-def eda():
-    eda = {
-        'titulo': 'Análisis Exploratorio de los Datos', # Titulo de la pestaña
-        'descripcion': 'La conformacion de nuestros datos es...'
+@app.route('/service')
+def service():
+    service = {
+        'titulo': '¿Cómo funciona?', # Titulo de la pestaña
+        'descripcion': 'Predicción del consumo eléctrico / entrenamiento...',
+        'link_repo': 'https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023'
         }
-    return render_template('pages/EDA.html', data=eda)
+    return render_template('pages/service.html', data=service)
+
+
+@app.route('/predict')
+def predict():
+    predict = {
+        'titulo': 'Predicción del consumo eléctrico', # Titulo de la pestaña
+        'descripcion': 'Pära conocer...',
+        }
+    return render_template('pages/predict.html', data=predict)
+
+@app.route('/train')
+def train():
+    train = {
+        'titulo': 'Entrenamiento del modelo', # Titulo de la pestaña
+        'descripcion': 'En esta sección podés...',
+        }
+    return render_template('pages/train.html', data=train)
 
 @app.route('/team')
 def team():
@@ -39,31 +57,19 @@ def team():
             'image': 'oscar.png'
         },
         {
-            'name': 'Cecilia Heredia',
-            'role': 'Diseñadora de Interfaces de Usuario',
-            'image': 'cecilia.png'
-        },
-        {
-            'name': 'Viviana Farabolloni',
-            'role': 'Desarrollador de Software',
-            'image': 'viviana.png'
-        },
-        {
             'name': 'Emmanuel Reynoso',
             'role': 'Especialista en Análisis de Datos',
             'image': 'emmanuel.png'
+        }, 
+        {
+            'name': 'Cecilia Heredia',
+            'role': 'Diseñadora de Interfaces de Usuario',
+            'image': 'cecilia.png'
         }
+        
     ]
     return render_template('pages/team.html', team_members=team_members)
 
-@app.route('/about')
-def about():
-    data = {
-        'titulo': 'Breve explicacion del nuestro proyecto', # Titulo de la pestaña
-        'descripcion': 'Aqui pasamos a comentarles un poco sobre el proyecto y sus objetivos',
-        'link_repo': 'https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023'
-        }
-    return render_template('pages/about.html', data=data)
 
 @app.errorhandler(404)
 def pagina_no_encontrada(error):
