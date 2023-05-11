@@ -1,0 +1,22 @@
+import unittest
+import pandas as pd
+
+from data_processor import DataProcessor
+
+class TestDataProcessor(unittest.TestCase):
+    
+    def setUp(self):
+        self.processor = DataProcessor("test_data.csv")
+        
+    def test_load_data(self):
+        self.processor.load_data()
+        self.assertIsInstance(self.processor._datos, pd.DataFrame)
+        
+    def test_split_data(self):
+        self.processor.load_data()
+        self.processor.transform_data()
+        train_data, val_data, test_data = self.processor.split_data('2021-01-01', '2021-01-14', '2021-01-21')
+        self.assertIsInstance(train_data, pd.DataFrame)
+        self.assertIsInstance(val_data, pd.DataFrame)
+        self.assertIsInstance(test_data, pd.DataFrame)
+        self.assertEqual(len(train_data)+len(val_data)+len(test_data), len(self.processor._datos))
