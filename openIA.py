@@ -123,11 +123,23 @@ class ElectricityDemand(DataProcessor):
         predictions = self._model.predict(self.create_features(dates))
         return predictions
 
-    def create_features(self, lag_demand: int, window_size: int) -> pd.DataFrame:
-        demand_lagged = self._datos['Demanda'].shift(lag_demand).rename('demand_lagged')
-        demand_rolled = self._datos['Demanda'].rolling(window_size).mean().rename('demand_rolled')
-        features = pd.concat([demand_lagged, demand_rolled], axis=1)
-        return features.dropna()
+   def create_features(self, lag_demand: int, window_size: int) -> pd.DataFrame:
+    # Crear la columna 'y' con la demanda eléctrica
+    df = pd.DataFrame({'y': self._datos['Demanda eléctrica']})
+    
+    # Crear las características usando las funciones rolling y shift de pandas
+    for lag in range(1, lag_demand + 1):
+        df[f'y_lag{lag}'] = df['y'].shift(lag)
+    
+    for window in range(1, window_size + 1):
+        df[f'y_roll{window}_mean'] = df['y'].rolling(window=window).mean()
+        df[f'y_roll{window}_max'] = df['y'].rolling(window=window).max()
+        df[f'y_roll{window}_min'] = df['y'].rolling(window=window).min()
+    
+    # Eliminar las filas con valores faltantes (NaN)
+    df = df.dropna()
+    
+    return df
 
 
 class DemandPredictor:
