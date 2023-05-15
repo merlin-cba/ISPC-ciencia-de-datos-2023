@@ -1,10 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-
-body {
-  font-family: 'Lato', sans-serif;
-}
-
 .navbar {
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -17,7 +10,7 @@ body {
 }
 
 .navbar-nav .nav-link {
-  color: #045193 !important;
+  color: #000;
   margin-right: 15px;
   margin-left: 15px;
 }
@@ -26,57 +19,24 @@ body {
   color: #007bff;
 }
 
-h1 {
-  color: #045193!important;
-  font-size: 36px;
-  font-weight: bold;
-}
-h2 {
-  color: #045193 !important;
-  font-size: 30px;
-  font-weight: bold;
-}
-h3 {
-  color: #00A0BA !important;
-  font-size: 26px;
-  font-weight: bold;
-}
-h4 {
-  color: #00A0BA !important;
-  font-size: 36px;
-  font-weight: bold;
-  font-family: Montserrat;
-}
-
-h5 {
-  color: #333;
-  font-size: 20px;
-}
-
-p {
-  color: #333;
-  font-size: 16px;
-  line-height: 1.5;
-}
-
 .sticky-top{
-  position: sticky;
-  top: 0;
-  z-index: 99;
+        position: sticky;
+        top: 0;
+        z-index: 99;
 }
 
 @media (min-width: 768px){
- .d-md-none{
-   display: none!important;
- }
+  .d-md-none{
+            display: none!important;
+            }
 }
 
 .error-container {
- max-width: 600px;
- margin: 0 auto 30px;
- text-align: center;
- padding: 30px;
- background-color: #fff;
- border-radius: 5px;
- box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  margin: 0 auto 30px;
+  text-align: center;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
