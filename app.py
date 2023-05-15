@@ -49,13 +49,21 @@ def prediccion(valor):
     return valor * 2
 
 
-@app.route('/train')
+@app.route('/train', methods=['GET', 'POST'])
 def train():
-    train = {
+    if request.method == 'POST':
+        input_link = str(request.form['input-text']) # Obtener el valor del formulario
+        result = carga_link(input_link) # función de prediccion
+        return str(result)
+    return render_template('pages/train.html', data={
         'titulo': 'Entrenamiento del modelo', # Titulo de la pestaña
         'descripcion': 'En esta sección podés...',
-        }
-    return render_template('pages/train.html', data=train)
+        })
+
+def carga_link(valor):
+    return valor
+
+
 
 @app.route('/team')
 def team():
