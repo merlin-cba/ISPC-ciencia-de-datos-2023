@@ -194,19 +194,20 @@ class LinearRegressionPredictor:
         y_pred = self.model.predict(X_test)
         return y_pred
 
-
 class RidgeModelTrainer:
-    def __init__(self, alpha=1.0):
+    def __init__(self, alpha: float = 1.0):
         self.alpha = alpha
-        self.model = None
-        
+        self.model = make_pipeline(StandardScaler(), Ridge(alpha=self.alpha))
+    
     def train(self, X_train, y_train):
-        pipeline = make_pipeline(
-            StandardScaler(),
-            Ridge(alpha=self.alpha)
-        )
-        pipeline.fit(X_train, y_train)
-        self.model = pipeline
-        
+        self.model.fit(X_train, y_train)
+    
     def predict(self, X_test):
         return self.model.predict(X_test)
+    
+    def evaluate(self, X, y):
+        y_pred = self.predict(X)
+        mae = mean_absolute_error(y, y_pred)
+        rmse = mean_squared_error(y, y_pred, squared=False)
+        return mae, rmse
+
