@@ -3,6 +3,17 @@
 {% block title %}{{ data.titulo }}{% endblock %}
 
 {% block content %}
-<h1>{{ data.bienvenida }}</h1>
+<div class="container d-flex flex-column align-items-center">
+    <img src="{{ url_for('static', filename='img/image1.jpg') }}" alt="Ilustración" class="mb-5">
+    <img src="{{ url_for('static', filename='img/isologo/logotipo.png') }}" alt="Logo" style="height:150px;" class="mb-3">
+   </div>
+
+
+   <h5>El consumo energético representa uno de los más importantes costos operativos dentro de las organizaciones.
+    En Smart Energy brindamos información precisa y confiable sobre el consumo de energía eléctrica a través del diseño de modelos de aprendizaje automático. 
+    </h5>
+    <h5>Nuestro objetivo es mejorar la eficiencia energética de nuestros clientes y ofrecer soluciones personalizadas para reducir la huella de carbono y mejorar la sostenibilidad.    
+    </h5>
+   
 
 {% endblock %}
