@@ -67,12 +67,18 @@ class DemandPredictor:
         pass
 
 class LinearRegressionPredictor(DemandPredictor):
-    def __init__(self, data_file: str):
-        super().__init__(data_file)
-        self._model = make_pipeline(StandardScaler(), LinearRegression())
+    def __init__(self):
+        super().__init__()
+        self._model = LinearRegression()
     
-    def train_model(self) -> None:
-        self._model.fit(self._train_data.drop(columns=['Demanda']), self._train_data['Demanda'])
+    def train(self, X_train: pd.DataFrame, y_train: pd.Series) -> None:
+        self._model.fit(X_train, y_train)
     
-    def predict(self, start_date: str, end_date: str) -> pd.DataFrame:
-        self._
+    def predict(self, X_test: pd.DataFrame) -> np.ndarray:
+        return self._model.predict(X_test)
+    
+    def evaluate(self, X: pd.DataFrame, y: pd.Series) -> Tuple[float, float]:
+        y_pred = self.predict(X)
+        mae = mean_absolute_error(y, y_pred)
+        rmse = np.sqrt(mean_squared_error(y, y_pred))
+        return mae, rmse
