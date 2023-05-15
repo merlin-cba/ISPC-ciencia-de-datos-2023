@@ -32,13 +32,22 @@ def service():
     return render_template('pages/service.html', data=service)
 
 
-@app.route('/predict')
+@app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    predict = {
-        'titulo': 'Predicción del consumo eléctrico', # Titulo de la pestaña
-        'descripcion': 'Pära conocer...',
-        }
-    return render_template('pages/predict.html', data=predict)
+    if request.method == 'POST':
+        input_number = int(request.form['input-number']) # Obtener el valor del formulario
+        result = prediccion(input_number) # función de prediccion
+        return str(result)
+    
+    return render_template('pages/predict.html', data={
+        'titulo': 'Predicción del consumo eléctrico',
+        'descripcion': 'Ingrese un valor para hacer la predicción.'
+    })
+
+# Función de predicción de ejemplo
+def prediccion(valor):
+    return valor * 2
+
 
 @app.route('/train')
 def train():
