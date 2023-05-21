@@ -1,5 +1,7 @@
 # Traemos las librerias
 from flask import Flask, render_template, request, url_for, redirect, jsonify
+from model.predictor import DataProcessor
+
 
 # Inicializar la aplicacion
 app = Flask(__name__)
@@ -34,6 +36,7 @@ def service():
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
+    instancia = DataProcessor('https://docs.google.com/spreadsheets/d/e/2PACX-1vS2YjVwU3IQAo2ITTvtN6rYqZjHiRYAiX0nH2wcRtnKzkbusE6OHWzkpyq8l6R8pybap_x4MhsJKuAK/pubhtml?gid=0&single=true')
     if request.method == 'POST':
         input_number = int(request.form['input-number']) # Obtener el valor del formulario
         result = prediccion(input_number) # función de prediccion
@@ -41,7 +44,8 @@ def predict():
     
     return render_template('pages/predict.html', data={
         'titulo': 'Predicción del consumo eléctrico',
-        'descripcion': 'Ingrese un valor para hacer la predicción.'
+        'descripcion': 'Ingrese un valor para hacer la predicción.',
+        'prediccion' : instancia.load_data()
     })
 
 # Función de predicción de ejemplo
