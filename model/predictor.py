@@ -32,10 +32,6 @@ class DataProcessor:
         except:
             print('Error: Data file not found.')
     
-    #def transform_data(self):
-    #    # Realizar la ingeniería de características aquí
-    #    pass
-
     def split_data(self, start_date_train, end_date_train, end_date_val):
         try:
             self.data       = self.data.loc[start_date_train:end_date_val]
@@ -44,16 +40,11 @@ class DataProcessor:
             self.test_data  = self.data.loc[end_date_val:]                    # Datos de test
 
             print("Dividio los datos")
-            # self.train_data.to_excel('datos_entrenamiento.xlsx')
             return self.train_data, self.val_data, self.test_data
         except:
             print("Error al dividir datos")
             return None, None, None, None
 
-# class DemandPredictor:
-#     def __init__(self, model):
-#         self.model = model
-    
     def train(self, datos):
         try:
             self.forecaster = ForecasterAutoreg(
@@ -63,9 +54,7 @@ class DataProcessor:
             
             self.metric, self.predictions = backtesting_forecaster(
                             forecaster         = self.forecaster,
-                            #y                  = datos.Demanda['2021-10-01 00:00':'2021-11-02 23:00'],#datos['Demanda'],
                             y                  = datos['Demanda']['2021-10-01 00:00':'2021-11-02 23:00'],
-                            #X                  = self.create_features(7, 1),
                             initial_train_size = 45,
                             fixed_train_size   = False,
                             steps              = 7,
@@ -89,29 +78,18 @@ class DataProcessor:
         try:
             if isinstance(fecha, str):
                 self.fecha = pd.date_range(fecha, periods=1)
-            # self.predictions = self.model.predict(self.create_features(self.fecha, 1))
             self.predictions = self.forecaster.predict(len(self.fecha))
             print("La prediccuon es:", self.predictions)
             return self.predictions
             
-            # return self.model.predict(X_test)
         except Exception as e:
             print("Error al predecir demanda - ", e)
 
     def create_features(self, lag_demand: int, window_size: int):# -> pd.DataFrame:
         try:
-            # Crear la columna 'y' con la demanda eléctrica
-            # self.df = pd.DataFrame({'y': self.data['Demanda']})
-            # self.df = pd.DataFrame({'y': self.data})
-            # self.df = pd.DataFrame({'y': self.data.values}, index=self.data.index)
             self.df = pd.DataFrame({'y': self.data['Demanda'].values}, index=self.data.index)
 
-
-
-            
-            # Crear las características usando las funciones rolling y shift de pandas
             for lag in range(1, lag_demand + 1):
-                # self.df[f'y_lag{lag}'] = self.df['y'].shift(lag)
                 self.df[f'y_lag{lag}'] = self.df['y'].shift(lag * self.df.index.freq)
                 
 
@@ -122,7 +100,6 @@ class DataProcessor:
                 self.df[f'y_roll{window}_min']  = self.df['y'].rolling(window=window).min()
             
             # Eliminar las filas con valores faltantes (NaN)
-            # self.df = self.df.dropna()
             self.df = self.df.dropna().set_index(self.data.index[lag_demand + window_size - 1:])
 
             return self.df
@@ -138,22 +115,10 @@ class DataProcessor:
             print("Error al evaluar modelo")
             return None, None
 
-# Implementa una clase específica para cada modelo que desees utilizar
-
-#class RandomForestPredictor(DemandPredictor):
-#    def __init__(self, dataframe):
-#        self.data = dataframe
-#        model = RandomForestRegressor()
-#        super().__init__(model)
-
-# Ejemplo de uso
 
 # Crear una instancia del DataProcessor y cargar los datos
 data_processor = DataProcessor('model\completo_ok.csv')
 data_processor.load_data()
-
-# Transformar los datos
-# data_processor.transform_data()
 
 # Dividir los datos en conjunto de entrenamiento y prueba
 X_train, X_test, y_train, y_test = None,None,None,None
@@ -165,8 +130,3 @@ metric, predictions = data_processor.train(train_data)
 
 # Realizar predicciones en el conjunto de prueba
 y_pred = data_processor.predict('2023-02-02 14:00')
-
-# Evaluar el modelo
-mae, mse = data_processor.evaluate(y_test, y_pred)
-print("MAE:", mae)
-print("MSE:", mse)
