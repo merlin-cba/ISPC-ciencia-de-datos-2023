@@ -1,0 +1,38 @@
+{% extends './template/layout.html' %}
+
+{% block title %}{{ data.titulo }}{% endblock %}
+
+{% block content %}
+<h1>{{ data.titulo }}</h1>
+<p>{{ data.descripcion }}</p>
+
+<form id="my-form" method="POST">
+    <label for="input-text">Ingrese su link de Google SpreadSheet:</label>
+    <input type="text" name="input-text" id="input-text">
+    <button type="submit" id="submit-btn">Enviar</button>
+</form>
+
+<div id="result-container"></div>
+
+<!-- Agregar script de AJAX con jQuery -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('form').submit(function(event) {
+      event.preventDefault(); // Prevenir envío por defecto
+      $.ajax({
+        type: 'POST',
+        url: '{{ url_for("train") }}', // URL de Flask
+        data: $('form').serialize(), // Datos del formulario
+        success: function(response) { // Función en caso de éxito
+          $('#result-container').html(response); // Mostrar respuesta en el contenedor
+        },
+        error: function(error) { // Función en caso de error
+          console.log(error);
+        }
+      });
+    });
+  });
+</script>
+
+
+{% endblock %}

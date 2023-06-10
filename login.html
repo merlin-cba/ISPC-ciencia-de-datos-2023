@@ -1,0 +1,61 @@
+{% extends './template/layout.html' %}
+
+{% block content %}
+<style>
+  .title-azul {
+    color: #045193;
+  }
+  </style>
+<div class="container">
+ <h1 class="text-center">Reconocimiento facial</h1>
+ <p class="text-center">En esta sección los usuarios pueden registrarse y loguearse con reconocimiento facial </p>
+
+ <div class="row mt-5">
+ <div class="col-md-6">
+ <h3 class="text-center title-azul"> Iniciar sesión</h3>
+ <p class="text-center">Si ya te registrate ingresá tu usuario/a</p>
+ 
+ <div class="form-group">
+  <label for="username">Usuario:</label>
+  <input type="text" class="form-control" id="username">
+ </div>
+
+ 
+ <div class="text-center mt-3">
+  <button type="submit" class="btn btn-primary">Iniciar sesión con reconocimiento facial</button>
+  </div>
+
+  <div class="text-center mt-3">
+    <button type="submit" class="btn btn-primary">Capturar imagen</button>
+    </div>
+
+ 
+ </div>
+ <div class="col-md-6">
+ <h3 class="text-center"> Registrarse</h3>
+ <p class="text-center">Si aún no te registrate podés hacerlo en esta sección</p>
+
+ <div class="form-group">
+  <label for="username">Usuario:</label>
+  <input type="text" class="form-control" id="username">
+ </div>
+ 
+ <div class="text-center mt-3">
+  <button type="submit" class="btn btn-secondary">Registrarse con reconocimiento facial</button>
+  </div>
+
+  <div class="text-center mt-3">
+    <button type="submit" class="btn btn-secondary">Registrar imagen</button>
+    </div>
+
+ 
+
+ </div>
+ </div>
+ 
+
+ 
+</div>
+{% endblock %}
+
+
