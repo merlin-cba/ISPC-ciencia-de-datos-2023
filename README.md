@@ -1,4 +1,4 @@
-
+!https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image3.png
 #Modelo de predicción del consumo de energía eléctrica en un shopping de Córdoba
 
 Docente: Narciso Pérez
