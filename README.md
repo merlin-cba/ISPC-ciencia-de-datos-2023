@@ -48,19 +48,19 @@ El enfoque que adoptamos es el de identificar en un primer momento a las variabl
 
 ## Sección II — Trabajo relacionado
 
-Predicción (forecasting) de la demanda eléctrica con Python by Joaquín Amat Rodrigo and Javier Escobar Ortiz, available under a Attribution 4.0 International (CC BY 4.0) at https://www.cienciadedatos.net/py29-forecasting-demanda-energia-electrica-python.html
+- Predicción (forecasting) de la demanda eléctrica con Python by Joaquín Amat Rodrigo and Javier Escobar Ortiz, available under a Attribution 4.0 International (CC BY 4.0) at https://www.cienciadedatos.net/py29-forecasting-demanda-energia-electrica-python.html
 
-Multiple linear regression, logarithmic multiple linear regression methods, and nonlinear autoregressive with exogenous input artificial neural networks https://www.researchgate.net/publication/344604260_Machine_Learning_Modeling_for_Energy_Consumption_of_Residential_and_Commercial_Sectors
+- Multiple linear regression, logarithmic multiple linear regression methods, and nonlinear autoregressive with exogenous input artificial neural networks https://www.researchgate.net/publication/344604260_Machine_Learning_Modeling_for_Energy_Consumption_of_Residential_and_Commercial_Sectors
 
-Linear Regression and Support Vector Regression 
+- Linear Regression and Support Vector Regression 
 https://ieeexplore.ieee.org/abstract/document/8769508
 
-A. González-Briones, G. Hernández, J. M. Corchado, S. Omatu and M. S. Mohamad, "Machine Learning Models for Electricity Consumption Forecasting: A Review," 2019 2nd International Conference on Computer Applications & Information Security (ICCAIS), 2019, pp. 1-6, doi: 10.1109/CAIS.2019.8769508.
+- A. González-Briones, G. Hernández, J. M. Corchado, S. Omatu and M. S. Mohamad, "Machine Learning Models for Electricity Consumption Forecasting: A Review," 2019 2nd International Conference on Computer Applications & Information Security (ICCAIS), 2019, pp. 1-6, doi: 10.1109/CAIS.2019.8769508.
 
-Our results show that gradient boosting regression models perform the best at predicting commercial building energy consumption, and can make predictions that are on average within a factor of 2 from the true energy consumption values (with an r2 score of 0.82).
+- Our results show that gradient boosting regression models perform the best at predicting commercial building energy consumption, and can make predictions that are on average within a factor of 2 from the true energy consumption values (with an r2 score of 0.82).
 https://www.sciencedirect.com/science/article/abs/pii/S0306261917313429
 
-The results show that using the gradient boosting machine model improved the R‐squared prediction accuracy and the CV(RMSE) in more than 80 percent of the cases, when compared to an industry best practice model that is based on piecewise linear regression, and to a random forest algorithm.
+- The results show that using the gradient boosting machine model improved the R‐squared prediction accuracy and the CV(RMSE) in more than 80 percent of the cases, when compared to an industry best practice model that is based on piecewise linear regression, and to a random forest algorithm.
 https://www.sciencedirect.com/science/article/abs/pii/S0378778817320844
 
 ## Sección III — Metodología
@@ -105,24 +105,21 @@ Para validar el modelo y testearlo, no podíamos dividir al dataset en el clási
 Por otra parte, para comparar los resultados de la serie de tiempo con otro algoritmo, elegimos una red neuronal que por falta de datos derivó en una regresión lineal múltiple.
 
 
-
-
-
-
-
-
 ## Secciones IV y V — Experimentos y Análisis
 ### Experimento 1: Red neuronal que derivó en Regresión lineal
 Como alternativa a la serie de tiempo intentamos hacer una red neuronal, esta la creamos usando la librería TensorFlow - Keras. Probamos varias veces pero en las pruebas siempre teníamos malos resultados, eso se debió a que teníamos pocos datos para entrenar el modelo.
 
 Surgió la idea de buscar un modelo ya entrenado pero por los tiempos pensamos continuar con una regresión lineal. Cuando lo construimos, en el EDA obtuvimos la siguiente matriz de correlaciones:
 
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image7.png)
+
 Ya nos podíamos imaginar el resultado ya que, después de entrenar el modelo, obtuvimos el siguiente resultado:
 
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image10.png)
 
 Se intentó quitar columnas (Feriado y Día) para intentar lograr cambios pero tampoco se logró modelar satisfactoriamente.
 
-
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image9.png)
 
 
 
