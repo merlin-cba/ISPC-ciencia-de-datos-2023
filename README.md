@@ -4,26 +4,26 @@
 
 Docente: **Narciso Pérez**
 
-***Equipo 3***:
+Equipo **3**:
 
-Oscar Ferreira
+**Oscar Ferreira**
 
-Cecilia Heredia
+**Cecilia Heredia**
 
-Emmanuel Reynoso
+**Emmanuel Reynoso**
 
 
 ### Tabla de contenido
 
-Sección I — Introducción
+**Sección I** — Introducción
 
-Sección II — Antecedentes
+**Sección II** — Antecedentes
 
-Sección III — Metodología
+**Sección III** — Metodología
 
-Secciones IV — Experimentos y Análisis
+**Secciones IV** — Experimentos y Análisis
 
-Sección V — Conclusiones y trabajo futuro
+**Sección V** — Conclusiones y trabajo futuro
 
 
 
@@ -130,7 +130,7 @@ Con estos resultados, avanzamos a continuación con el modelo de serie de tiempo
 
 ![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image13.png)
 
-
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image14.png)
 ### Experimento 2: Serie temporal auto-recursiva regresiva
 
 El estudio de las series de tiempo nos demandó el esfuerzo de entender como son tratados los datos referidos a esta variable.
