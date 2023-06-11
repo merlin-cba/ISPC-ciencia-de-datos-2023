@@ -235,7 +235,7 @@ Pasos:
 5. Verificar la similitud entre la magen de inicio  de sesión con las capturadas en el registro del usuario/a.
 
 
-## Sección II — Trabajo relacionado
+## Sección VI — Trabajo relacionado
 
 - Predicción (forecasting) de la demanda eléctrica con Python by Joaquín Amat Rodrigo and Javier Escobar Ortiz, available under a Attribution 4.0 International (CC BY 4.0) at https://www.cienciadedatos.net/py29-forecasting-demanda-energia-electrica-python.html
 
