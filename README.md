@@ -137,17 +137,17 @@ El estudio de las series de tiempo nos demandó el esfuerzo de entender como son
 En el transcurso del desarrollo del trabajo nos encontramos que si dejamos que Python reclasifique los datos se produce un desfasaje de fechas, lo cual provocaba que el entrenamiento del modelo resultase en errores, ya que su interpretación de las fechas provocaba espacios en blanco del modelo, con lo cual los entrenamientos fallaban.
 
 Los datos en crudo muestran lo siguiente:
-
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image17.png)
 
 Intentamos convertir las fechas sin tratamiento y nos encontramos con lo siguiente:
 
-
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image23.png)
 Lo que nos daba como resultado lo siguiente:
 
-
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image16.png)
 Estos espacios en blanco, provocaron un error del modelado de predicciones en la serie de tiempo, como puede verse a continuación:
 
-
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image18.png)
 Esto se resuelve con un pequeño cambio en el modelo de datos, y un tratamiento correcto de las fechas en el set de datos:
 
 ID;Fecha;Dia;Demanda;Temperatura;Feriado;Publico;
@@ -159,17 +159,15 @@ ID;Fecha;Dia;Demanda;Temperatura;Feriado;Publico;
 
 Lo que nos permitió limpiar los datos, como puede verse en la siguiente figura:
 
-
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image19.png)
 Al momento de iniciar los modelos predictivos, nos encontramos con problemas relacionados con la continuidad de los datos, como puede verse en el set de datos más abajo, donde algunos valores caen abruptamente.
 
 
-
-
-
-
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image20.png)
 
 Estos valles nos producen problemas en los modelos de Predicción (backtest) al generar (paradójicamente) valores faltantes.
 
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image21.png)
 
 Investigando el tema, se llega a la conclusión de que la escasez de datos produce este tipo de errores, ya que la característica de los modelos forecast es completar los espacios vacíos con valores nulos, sobre todo cuando llega a los extremos de la serie de datos.
 
@@ -177,12 +175,12 @@ Como conclusión, podemos decir que si bien el modelo teórico funciona, se debe
 
 En nuestro caso, no llegamos a un resultado positivo,por diversos problemas, pero el mayor de todos se dio en que se disponía SOLO de 10 meses de datos y eso es un volumen muy escaso para realizar predicciones del tipo forward – back forecasting, en particular con nuestra distribución de datos que dado su volumen no alcanzó a generar correlaciones apreciables, lo que fue un primer indicio de que el volumen de datos no alcanzaba a impactar en el modelo de predicción, como puede verse a continuación.
 
-
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image22.png)
 Con los datos existentes y dado que el periodo de entrenamiento es muy pequeño se ha logrado un factor de cobertura de 61.7%
 
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image23.png)
 
-
-
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image24.png)
 
 Antes de adentrarnos en un mayor análisis de los resultados, descubrimos que no conocíamos a fondo a nuestros datos, por lo que iniciamos (al final del trabajo!) un EDA (análisis exploratorio de datos) para entenderlos mejor.
 
@@ -192,14 +190,15 @@ Hay picos a finales de diciembre y enero. Y se nota el cambio de consumo en 2021
 ## hallazgo1
 Hay mediciones muy bajas en fechas esperables. Navidad | Año nuevo. Pero qué pasó el 27/09/21, 31/10/21, 26/01/22, 211/02/22. ##hallazgo2
 La serie se ve de la siguiente manera
-
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image25.png)
 Para modelar se utiliza la librería de Prophet
 Se realiza de un primer entrenamiento sin hiperparámetros y con un forecast de 25 días se consigue lo siguiente: 
 
-
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image1.png)
 Luego de usar crossvalidation y tomar MAPE como métrica y conseguimos lo siguiente para los siguientes días:
-
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image2.png)
 Se recomienda continuar con una fuerte limpieza de datos y probar con más variables. Dado que solo se utilizó el consumo. Y realizar un EDA mucho más profundo.
+
 ## Sección V — Conclusiones y trabajo futuro
 Queremos predecir el consumo de energía de un shopping en la ciudad de Córdoba. Creímos que con conseguir los datos (consumo de energía pasado, y variables relevantes tales como temperatura y afluencia de público) y con identificar un modelo de predicción (serie de tiempo auto-recursiva regresiva) sería suficiente.
 Sin embargo, conseguir los datos no fue tan simple como creimos en un primer momento, particularmente porque la granulometría de cada uno era distinta (consumo de energía cada cuarto de hora, público por día), lo que nos obligó a manipularlos fuertemente para poder ingresarlos a un modelo de predicción. Aplicar el modelo que encontramos a nuestro set de datos tampoco fue tan sencillo: el modelo funcionaba con un set de cinco años y nosotros teníamos diez meses.
