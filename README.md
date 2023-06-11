@@ -19,7 +19,7 @@ Sección V — Conclusiones y trabajo futuro
 
 
 
-Sección I — Introducción
+##Sección I — Introducción
 Hoy en día, el consumo de energía en las organizaciones constituye entre el 10% y el 50% de sus costos operativos. Este consumo de energía se suele percibir como algo ineludible, como algo necesario para la realización de las tareas que son la misión de la organización. Sin embargo, el consumo de energía puede ser optimizado si se comprende cuáles son las variables que lo afectan y cómo lo hacen. 
 Edificios con instalaciones complejas como los shoppings son grandes consumidores de energía eléctrica. Muchos hacen esfuerzos para reducir este consumo, incorporando tecnologías más eficientes, pero se hace difícil comparar situaciones antes y después por la gran cantidad de variables que participan. El modelado de una línea de base que permita incluir las variables de temperatura exterior y público asistente es necesario para normalizar los datos en función de estas variables y entender si se está efectivamente reduciendo el consumo de energía para las mismas condiciones, antes y después de la implementación de mejoras. Este trabajo es relevante para todos los shoppings y edificios donde la temperatura exterior y la cantidad de público sean variables que afecten a sus consumos de energía.
 El desafío de comprender de qué depende el consumo de energía resulta interesante porque hay variables que se pueden controlar y de este modo controlar el consumo de energía. Las consecuencias de este control del consumo permiten al usuario reducir sus costos debidos al consumo de energía. Adicionalmente, la optimización del consumo permite beneficios adicionales a la sociedad toda: menores emisiones de gases de efecto invernadero a la atmósfera por menor consumo, mejor aprovechamiento de la capacidad instalada de generación eléctrica, menor consumo de combustibles fósiles.
@@ -35,9 +35,8 @@ Se sabe que el consumo de energía depende de muchas variables, algunas más rel
 Lo nuevo que se aportaría es cómo y cuánto las variables identificadas pueden predecir el consumo, en primer lugar. En segundo lugar, si el consumo en un determinado momento/día es el esperado o menor (indicando mayor eficiencia) o mayor (indicando oportunidades de mejora para la reducción del consumo).
 
 El enfoque que adoptamos es el de identificar en un primer momento a las variables de temperatura exterior y afluencia de público como las variables más relevantes que determinan el consumo de energía. En conversaciones con el cliente, identificamos que la afluencia de público varía según el día de la semana, y según la categoría de hábil o feriado de ese día, impactando así en el consumo de energía del shopping. Decidimos entonces ampliar el rango de variables para incluir al día de la semana, y al tipo de día (feriado o no).
-Sección II — Trabajo relacionado
+##Sección II — Trabajo relacionado
 Predicción (forecasting) de la demanda eléctrica con Python by Joaquín Amat Rodrigo and Javier Escobar Ortiz, available under a Attribution 4.0 International (CC BY 4.0) at https://www.cienciadedatos.net/py29-forecasting-demanda-energia-electrica-python.html
-
 
 Multiple linear regression, logarithmic multiple linear regression methods, and nonlinear autoregressive with exogenous input artificial neural networks https://www.researchgate.net/publication/344604260_Machine_Learning_Modeling_for_Energy_Consumption_of_Residential_and_Commercial_Sectors
 Linear Regression and Support Vector Regression 
@@ -48,7 +47,7 @@ https://www.sciencedirect.com/science/article/abs/pii/S0306261917313429
 The results show that using the gradient boosting machine model improved the R‐squared prediction accuracy and the CV(RMSE) in more than 80 percent of the cases, when compared to an industry best practice model that is based on piecewise linear regression, and to a random forest algorithm.
 https://www.sciencedirect.com/science/article/abs/pii/S0378778817320844
 
-Sección III — Metodología
+##Sección III — Metodología
 Hoy en día muchas organizaciones asumen compromisos de reducción del consumo de energía. Como el consumo de energía suele depender de muchas variables, es difícil comparar dos situaciones y entender si el consumo efectivamente se redujo o si aumentó por motivos esperables (por ejemplo, el consumo de energía en climatización en un mes otoñal será habitualmente más bajo que el de un mes con temperaturas más extremas). Esta complejidad puede abordarse con un modelo que involucre a todas las variables exógenas, permitiendo así predecir el consumo en un momento futuro incorporando a todas ellas en la predicción. La comparación del consumo predicho con el consumo de energía realmente consumido permitirá concluir si se está consumiendo mejor o peor, con las consecuencias mencionadas sobre los costos y las emisiones de gases de efecto invernadero.
 
 Con el objetivo final de construir una serie temporal, utilizamos un modelo de predicción autoregresivo recursivo, con optimización de hiperparámetros y forecasting con variables exógenas.
@@ -66,7 +65,7 @@ Decidimos llevar todo a datos por hora, para lo cual:
 agrupamos los datos de consumo de energía cada 15 minutos para construir un solo dato promedio por hora
 hicimos un webscrapping durante toda una semana en octubre de 2022 para entender la distribución de la afluencia de público durante cada día de esa semana (incluyendo un lunes feriado), para luego distribuir el dato diario de público en un dato por hora, siguiendo la metodología que se describe a continuación.
 
-Scrapping para público
+##Scrapping para público
 
 Necesitábamos obtener la cantidad de público que el negocio tenía por hora y por día, para analizar cuánta injerencia tenía este dato en el consumo. El negocio no nos brindó esos datos entonces optamos por traer los datos directamente del servicio de “Google Mi Negocio” que es la ficha que aparece a la derecha a la hora de buscar algún término de búsqueda, en este caso el negocio. En uno de los zócalos tenemos la concurrencia del público, por día y por hora.
 
@@ -95,8 +94,8 @@ Por otra parte, para comparar los resultados de la serie de tiempo con otro algo
 
 
 
-Secciones IV y V — Experimentos y Análisis
-Experimento 1: Red neuronal que derivó en Regresión lineal
+##Secciones IV y V — Experimentos y Análisis
+###Experimento 1: Red neuronal que derivó en Regresión lineal
 Como alternativa a la serie de tiempo intentamos hacer una red neuronal, esta la creamos usando la librería TensorFlow - Keras. Probamos varias veces pero en las pruebas siempre teníamos malos resultados, eso se debió a que teníamos pocos datos para entrenar el modelo.
 
 Surgió la idea de buscar un modelo ya entrenado pero por los tiempos pensamos continuar con una regresión lineal. Cuando lo construimos, en el EDA obtuvimos la siguiente matriz de correlaciones:
@@ -117,7 +116,7 @@ Con estos resultados, avanzamos a continuación con el modelo de serie de tiempo
 
 
 
-Experimento 2: Serie temporal auto-recursiva regresiva
+###Experimento 2: Serie temporal auto-recursiva regresiva
 
 El estudio de las series de tiempo nos demandó el esfuerzo de entender como son tratados los datos referidos a esta variable.
 En el transcurso del desarrollo del trabajo nos encontramos que si dejamos que Python reclasifique los datos se produce un desfasaje de fechas, lo cual provocaba que el entrenamiento del modelo resultase en errores, ya que su interpretación de las fechas provocaba espacios en blanco del modelo, con lo cual los entrenamientos fallaban.
@@ -172,7 +171,7 @@ Con los datos existentes y dado que el periodo de entrenamiento es muy pequeño 
 
 Antes de adentrarnos en un mayor análisis de los resultados, descubrimos que no conocíamos a fondo a nuestros datos, por lo que iniciamos (al final del trabajo!) un EDA (análisis exploratorio de datos) para entenderlos mejor.
 
-Experimento 3: Análisis exploratorio de datos
+###Experimento 3: Análisis exploratorio de datos
 En vista de que los experimentos anteriores no estaban llegando a buenas métricas, se toma un set de datos “crudos”. Sin prácticamente limpieza de datos se encuentran dos hallazgos importantes en el EDA para validar con el cliente:
 Hay picos a finales de diciembre y enero. Y se nota el cambio de consumo en 2021 con 2022. En la distribución por día los días que más se consumen no necesariamente son los días de los que más datos hay. Se esperaba que los días con más consumo fueran el fin de semana. ##hallazgo1
 Hay mediciones muy bajas en fechas esperables. Navidad | Año nuevo. Pero qué pasó el 27/09/21, 31/10/21, 26/01/22, 211/02/22. ##hallazgo2
@@ -185,7 +184,7 @@ Se realiza de un primer entrenamiento sin hiperparámetros y con un forecast de 
 Luego de usar crossvalidation y tomar MAPE como métrica y conseguimos lo siguiente para los siguientes días:
 
 Se recomienda continuar con una fuerte limpieza de datos y probar con más variables. Dado que solo se utilizó el consumo. Y realizar un EDA mucho más profundo.
-Sección V — Conclusiones y trabajo futuro
+##Sección V — Conclusiones y trabajo futuro
 Queremos predecir el consumo de energía de un shopping en la ciudad de Córdoba. Creímos que con conseguir los datos (consumo de energía pasado, y variables relevantes tales como temperatura y afluencia de público) y con identificar un modelo de predicción (serie de tiempo auto-recursiva regresiva) sería suficiente.
 Sin embargo, conseguir los datos no fue tan simple como creimos en un primer momento, particularmente porque la granulometría de cada uno era distinta (consumo de energía cada cuarto de hora, público por día), lo que nos obligó a manipularlos fuertemente para poder ingresarlos a un modelo de predicción. Aplicar el modelo que encontramos a nuestro set de datos tampoco fue tan sencillo: el modelo funcionaba con un set de cinco años y nosotros teníamos diez meses.
 Logramos superar estas dificultades, y sólo después de reconocer que los resultados estaban lejos de ser alentadores (r2=0.06 para la regresión lineal múltiple), nos dimos cuenta de que teníamos que hacer un análisis exploratorio de los datos: primero teníamos que verlos para entenderlos, para luego hacer una buena limpieza de outliers y datos irrelevantes (consumo en días con el shopping cerrado, consumo en días con el aire acondicionado averiado, etc).
