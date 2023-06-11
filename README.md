@@ -121,13 +121,12 @@ Se intentó quitar columnas (Feriado y Día) para intentar lograr cambios pero t
 
 ![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image9.png)
 
-
-
-
 Estos resultados no permiten predecir con una precisión aceptable los consumos futuros: el coeficiente de correlación ajustado (r2 ajustado) nos dio 0.06
 
 Con estos resultados, avanzamos a continuación con el modelo de serie de tiempo.
 
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image6.png)
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image11.png)
 
 
 ### Experimento 2: Serie temporal auto-recursiva regresiva
