@@ -1,4 +1,4 @@
-!(https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image3.png)
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image3.png)
 
 # Modelo de predicción del consumo de energía eléctrica en un shopping de Córdoba
 
@@ -86,7 +86,7 @@ hicimos un webscrapping durante toda una semana en octubre de 2022 para entender
 
 Necesitábamos obtener la cantidad de público que el negocio tenía por hora y por día, para analizar cuánta injerencia tenía este dato en el consumo. El negocio no nos brindó esos datos entonces optamos por traer los datos directamente del servicio de “Google Mi Negocio” que es la ficha que aparece a la derecha a la hora de buscar algún término de búsqueda, en este caso el negocio. En uno de los zócalos tenemos la concurrencia del público, por día y por hora.
 
-
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image8.png)
 
 Buscamos si alguien había hecho algo similar y encontramos una persona que lo obtuvo pero usaba librerías que ya no están disponibles. Entonces nos tocó hacer el script desde cero.
 Como librerías usamos Selenium para el Web Scraping y Pandas para el manejo de los datos. 
