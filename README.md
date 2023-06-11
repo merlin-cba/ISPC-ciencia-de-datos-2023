@@ -86,7 +86,7 @@ hicimos un webscrapping durante toda una semana en octubre de 2022 para entender
 
 Necesitábamos obtener la cantidad de público que el negocio tenía por hora y por día, para analizar cuánta injerencia tenía este dato en el consumo. El negocio no nos brindó esos datos entonces optamos por traer los datos directamente del servicio de “Google Mi Negocio” que es la ficha que aparece a la derecha a la hora de buscar algún término de búsqueda, en este caso el negocio. En uno de los zócalos tenemos la concurrencia del público, por día y por hora.
 
-![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image4.png)
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image6.png)
 
 Buscamos si alguien había hecho algo similar y encontramos una persona que lo obtuvo pero usaba librerías que ya no están disponibles. Entonces nos tocó hacer el script desde cero.
 Como librerías usamos Selenium para el Web Scraping y Pandas para el manejo de los datos. 
@@ -120,13 +120,15 @@ Ya nos podíamos imaginar el resultado ya que, después de entrenar el modelo, o
 Se intentó quitar columnas (Feriado y Día) para intentar lograr cambios pero tampoco se logró modelar satisfactoriamente.
 
 ![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image9.png)
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image11.png)
 
 Estos resultados no permiten predecir con una precisión aceptable los consumos futuros: el coeficiente de correlación ajustado (r2 ajustado) nos dio 0.06
 
 Con estos resultados, avanzamos a continuación con el modelo de serie de tiempo.
 
-![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image6.png)
-![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image11.png)
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image12.png)
+
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image13.png)
 
 
 ### Experimento 2: Serie temporal auto-recursiva regresiva
