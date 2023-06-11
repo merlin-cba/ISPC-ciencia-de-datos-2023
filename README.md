@@ -10,16 +10,12 @@ Cecilia Heredia
 Emmanuel Reynoso
 
 
-Tabla de contenido
+### Tabla de contenido
 
 Sección I — Introducción
-
 Sección II — Antecedentes
-
 Sección III — Metodología
-
 Secciones IV — Experimentos y Análisis
-
 Sección V — Conclusiones y trabajo futuro
 
 
