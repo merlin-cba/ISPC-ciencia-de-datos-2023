@@ -86,7 +86,7 @@ hicimos un webscrapping durante toda una semana en octubre de 2022 para entender
 
 Necesitábamos obtener la cantidad de público que el negocio tenía por hora y por día, para analizar cuánta injerencia tenía este dato en el consumo. El negocio no nos brindó esos datos entonces optamos por traer los datos directamente del servicio de “Google Mi Negocio” que es la ficha que aparece a la derecha a la hora de buscar algún término de búsqueda, en este caso el negocio. En uno de los zócalos tenemos la concurrencia del público, por día y por hora.
 
-![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image8.png)
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image4.png)
 
 Buscamos si alguien había hecho algo similar y encontramos una persona que lo obtuvo pero usaba librerías que ya no están disponibles. Entonces nos tocó hacer el script desde cero.
 Como librerías usamos Selenium para el Web Scraping y Pandas para el manejo de los datos. 
@@ -96,7 +96,7 @@ En una primera instancia lo creamos buscando que la funcionalidad haga lo que ne
 Finalmente el script abre Chrome, busca el negocio en el buscador de Google y busca el zócalo de la concurrencia del público. Al llegar a esa fecha va al primer día, recorre las horas de ese día para tomar el porcentaje del público y luego pasar al siguiente día. Cuando tenemos todos los datos en el DataFrame, exportamos en un CSV para cruzarlo con los demás datos.
 
 
-
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image8.png)
 
 Ahora ya contábamos con los datos necesarios (reducidos a 10 meses por la limitación del dato de público), pero nos dimos cuenta de que la afluencia del público estaba directamente relacionada con el día de la semana y con la categoría de hábil o feriado. Decidimos entonces incorporar estas variables al dataset.
 Paralelamente a la realización de este trabajo, hicimos una búsqueda bibliográfica para identificar posibles modelos para predecir el consumo de energía eléctrica, y encontramos que una serie temporal parecía ajustarse bien a nuestro problema.
