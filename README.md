@@ -17,13 +17,15 @@ Equipo **3**:
 
 **Sección I** — Introducción
 
-**Sección II** — Antecedentes
+**Sección II** — Metodología
 
-**Sección III** — Metodología
+**Sección III** — Experimentos y Análisis
 
-**Secciones IV** — Experimentos y Análisis
+**Secciones IV** — Conclusiones y trabajo futuro
 
-**Sección V** — Conclusiones y trabajo futuro
+**Sección V** — Implementaciones Reconocimiento Facial
+
+**Sección VI** — Antecedentes
 
 
 
@@ -46,24 +48,8 @@ Lo nuevo que se aportaría es cómo y cuánto las variables identificadas pueden
 
 El enfoque que adoptamos es el de identificar en un primer momento a las variables de temperatura exterior y afluencia de público como las variables más relevantes que determinan el consumo de energía. En conversaciones con el cliente, identificamos que la afluencia de público varía según el día de la semana, y según la categoría de hábil o feriado de ese día, impactando así en el consumo de energía del shopping. Decidimos entonces ampliar el rango de variables para incluir al día de la semana, y al tipo de día (feriado o no).
 
-## Sección II — Trabajo relacionado
 
-- Predicción (forecasting) de la demanda eléctrica con Python by Joaquín Amat Rodrigo and Javier Escobar Ortiz, available under a Attribution 4.0 International (CC BY 4.0) at https://www.cienciadedatos.net/py29-forecasting-demanda-energia-electrica-python.html
-
-- Multiple linear regression, logarithmic multiple linear regression methods, and nonlinear autoregressive with exogenous input artificial neural networks https://www.researchgate.net/publication/344604260_Machine_Learning_Modeling_for_Energy_Consumption_of_Residential_and_Commercial_Sectors
-
-- Linear Regression and Support Vector Regression 
-https://ieeexplore.ieee.org/abstract/document/8769508
-
-- A. González-Briones, G. Hernández, J. M. Corchado, S. Omatu and M. S. Mohamad, "Machine Learning Models for Electricity Consumption Forecasting: A Review," 2019 2nd International Conference on Computer Applications & Information Security (ICCAIS), 2019, pp. 1-6, doi: 10.1109/CAIS.2019.8769508.
-
-- Our results show that gradient boosting regression models perform the best at predicting commercial building energy consumption, and can make predictions that are on average within a factor of 2 from the true energy consumption values (with an r2 score of 0.82).
-https://www.sciencedirect.com/science/article/abs/pii/S0306261917313429
-
-- The results show that using the gradient boosting machine model improved the R‐squared prediction accuracy and the CV(RMSE) in more than 80 percent of the cases, when compared to an industry best practice model that is based on piecewise linear regression, and to a random forest algorithm.
-https://www.sciencedirect.com/science/article/abs/pii/S0378778817320844
-
-## Sección III — Metodología
+## Sección II — Metodología
 
 Hoy en día muchas organizaciones asumen compromisos de reducción del consumo de energía. Como el consumo de energía suele depender de muchas variables, es difícil comparar dos situaciones y entender si el consumo efectivamente se redujo o si aumentó por motivos esperables (por ejemplo, el consumo de energía en climatización en un mes otoñal será habitualmente más bajo que el de un mes con temperaturas más extremas). Esta complejidad puede abordarse con un modelo que involucre a todas las variables exógenas, permitiendo así predecir el consumo en un momento futuro incorporando a todas ellas en la predicción. La comparación del consumo predicho con el consumo de energía realmente consumido permitirá concluir si se está consumiendo mejor o peor, con las consecuencias mencionadas sobre los costos y las emisiones de gases de efecto invernadero.
 
@@ -105,7 +91,7 @@ Para validar el modelo y testearlo, no podíamos dividir al dataset en el clási
 Por otra parte, para comparar los resultados de la serie de tiempo con otro algoritmo, elegimos una red neuronal que por falta de datos derivó en una regresión lineal múltiple.
 
 
-## Secciones IV y V — Experimentos y Análisis
+## Secciones III — Experimentos y Análisis
 ### Experimento 1: Red neuronal que derivó en Regresión lineal
 Como alternativa a la serie de tiempo intentamos hacer una red neuronal, esta la creamos usando la librería TensorFlow - Keras. Probamos varias veces pero en las pruebas siempre teníamos malos resultados, eso se debió a que teníamos pocos datos para entrenar el modelo.
 
@@ -199,9 +185,70 @@ Luego de usar crossvalidation y tomar MAPE como métrica y conseguimos lo siguie
 ![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image2.png)
 Se recomienda continuar con una fuerte limpieza de datos y probar con más variables. Dado que solo se utilizó el consumo. Y realizar un EDA mucho más profundo.
 
-## Sección V — Conclusiones y trabajo futuro
+## Sección IV — Conclusiones y trabajo futuro
 Queremos predecir el consumo de energía de un shopping en la ciudad de Córdoba. Creímos que con conseguir los datos (consumo de energía pasado, y variables relevantes tales como temperatura y afluencia de público) y con identificar un modelo de predicción (serie de tiempo auto-recursiva regresiva) sería suficiente.
 Sin embargo, conseguir los datos no fue tan simple como creimos en un primer momento, particularmente porque la granulometría de cada uno era distinta (consumo de energía cada cuarto de hora, público por día), lo que nos obligó a manipularlos fuertemente para poder ingresarlos a un modelo de predicción. Aplicar el modelo que encontramos a nuestro set de datos tampoco fue tan sencillo: el modelo funcionaba con un set de cinco años y nosotros teníamos diez meses.
 Logramos superar estas dificultades, y sólo después de reconocer que los resultados estaban lejos de ser alentadores (r2=0.06 para la regresión lineal múltiple), nos dimos cuenta de que teníamos que hacer un análisis exploratorio de los datos: primero teníamos que verlos para entenderlos, para luego hacer una buena limpieza de outliers y datos irrelevantes (consumo en días con el shopping cerrado, consumo en días con el aire acondicionado averiado, etc).
 Este trabajo pretende presentar el camino recorrido, las dificultades que encontramos y los posibles caminos a seguir para construir un modelo válido para este ejemplo y para generalizarlo a cualquier usuario de energía que quiera comprender y predecir su consumo.
+
+## Sección V — Implementaciones Reconocimiento Facial
+
+Para la implementacion de los login de reconocimiento facial, se trabajajó en la implementacion de 2 metodos, cada uno con sus pro y sus contra.
+
+### librería Face Recognition 
+Este modelo de login facial utiliza La librería Face Recognition de Python para reconocer y manipular caras en imágenes. 
+Está construida utilizando el reconocimiento facial de última generación de dlib, 
+una biblioteca de aprendizaje automático y visión por computadora, con aprendizaje profundo. 
+El modelo tiene una precisión del 99.38% en el benchmark Labeled Faces in the Wild, 
+lo que significa que es capaz de reconocer correctamente el 99.38% de las caras en un conjunto de datos de prueba.
+
+Permite a los usuarios registrar su nombre de usuario e imágenes de su rostro para utilizarlas en un sistema de
+inicio de sesión con reconocimiento facial.
+
+Pasos: 
+1. Registrar un nombre de usuario. 
+2. Registrar 5 imágenes faciales, mirando a la cámara, en un ambiente con buena iluminación. 
+   Detectar los puntos de referencia en las 5 imágenes cargadas y almacenarlos en una lista. 
+   Las medidas que  son: distancia entre los ojos, ancho de la boca, ancho del labio superio e inferior, longitud del puente nasal y ancho de la punta e la nariz.  
+3. Iniciar sesión con captura de la imagen facial
+4. Verificar la similitud entre la imagen de inicio  de sesión con las capturadas ene l registro del usuario/a. 
+
+### biblioteca MTCNN
+Este modelo de login facial utiliza la biblioteca MTCNN y significa Redes Convolucionales en Cascada Multitarea. 
+Es un marco desarrollado para la detección y alineación de rostros. El proceso consta de tres etapas de redes 
+convolucionales capaces de reconocer rostros y ubicaciones de puntos de referencia como ojos, nariz y boca (pasa de una 
+CNN poco profunda a una más compleja).
+
+Para mejorar la presición del modelo, se cargar el predictor de puntos de referencia faciales de Dlib que cpntine dos módulos. 
+Por un lado, el archivo "shape_predictor_68_face_landmarks.dat" que contiene el modelo entrenado para detectar 68 puntos de referencia en una imagen de un rostro humano. 
+Por otro, "get_frontal_face_detector", que carga carga un detector de rostros frontales que se utiliza para detectar rostros humanos en una imagen.
+
+Además, se utiliza la función land_marks para detectar puntos de referencia faciales en una imagen, el detector ORB para calcular descriptores en las imágenes y el comparador BFMatcher 
+para encontrar coincidencias entre los descriptores de las imágenes y calcula una medida de similitud.
+  
+
+Pasos: 
+1. Registrar un nombre de usuario. 
+2. Registrar 5 imágenes faciales, mirando a la cámara, en un ambiente con buena iluminación. 
+3. Guardar las imágenes con uan medida específica y en escala de grises para detectar puntos de referencia faciales con landmarks. 
+4. Iniciar sesión con captura de la imagen facial
+5. Verificar la similitud entre la magen de inicio  de sesión con las capturadas en el registro del usuario/a.
+
+
+## Sección II — Trabajo relacionado
+
+- Predicción (forecasting) de la demanda eléctrica con Python by Joaquín Amat Rodrigo and Javier Escobar Ortiz, available under a Attribution 4.0 International (CC BY 4.0) at https://www.cienciadedatos.net/py29-forecasting-demanda-energia-electrica-python.html
+
+- Multiple linear regression, logarithmic multiple linear regression methods, and nonlinear autoregressive with exogenous input artificial neural networks https://www.researchgate.net/publication/344604260_Machine_Learning_Modeling_for_Energy_Consumption_of_Residential_and_Commercial_Sectors
+
+- Linear Regression and Support Vector Regression 
+https://ieeexplore.ieee.org/abstract/document/8769508
+
+- A. González-Briones, G. Hernández, J. M. Corchado, S. Omatu and M. S. Mohamad, "Machine Learning Models for Electricity Consumption Forecasting: A Review," 2019 2nd International Conference on Computer Applications & Information Security (ICCAIS), 2019, pp. 1-6, doi: 10.1109/CAIS.2019.8769508.
+
+- Our results show that gradient boosting regression models perform the best at predicting commercial building energy consumption, and can make predictions that are on average within a factor of 2 from the true energy consumption values (with an r2 score of 0.82).
+https://www.sciencedirect.com/science/article/abs/pii/S0306261917313429
+
+- The results show that using the gradient boosting machine model improved the R‐squared prediction accuracy and the CV(RMSE) in more than 80 percent of the cases, when compared to an industry best practice model that is based on piecewise linear regression, and to a random forest algorithm.
+https://www.sciencedirect.com/science/article/abs/pii/S0378778817320844
 
