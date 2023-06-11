@@ -194,6 +194,7 @@ Este trabajo pretende presentar el camino recorrido, las dificultades que encont
 ## Sección V — Implementaciones Reconocimiento Facial
 
 Para la implementacion de los login de reconocimiento facial, se trabajajó en la implementacion de 2 metodos, cada uno con sus pro y sus contra.
+![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/main/images/comparacionModelos.jpg)
 
 ### librería Face Recognition 
 Este modelo de login facial utiliza La librería Face Recognition de Python para reconocer y manipular caras en imágenes. 
