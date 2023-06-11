@@ -1,4 +1,4 @@
-! https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image3.png
+! (https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/Oscar/imagenes/image3.png)
 
 # Modelo de predicción del consumo de energía eléctrica en un shopping de Córdoba
 
@@ -46,7 +46,7 @@ Lo nuevo que se aportaría es cómo y cuánto las variables identificadas pueden
 
 El enfoque que adoptamos es el de identificar en un primer momento a las variables de temperatura exterior y afluencia de público como las variables más relevantes que determinan el consumo de energía. En conversaciones con el cliente, identificamos que la afluencia de público varía según el día de la semana, y según la categoría de hábil o feriado de ese día, impactando así en el consumo de energía del shopping. Decidimos entonces ampliar el rango de variables para incluir al día de la semana, y al tipo de día (feriado o no).
 
-##Sección II — Trabajo relacionado
+## Sección II — Trabajo relacionado
 
 Predicción (forecasting) de la demanda eléctrica con Python by Joaquín Amat Rodrigo and Javier Escobar Ortiz, available under a Attribution 4.0 International (CC BY 4.0) at https://www.cienciadedatos.net/py29-forecasting-demanda-energia-electrica-python.html
 
