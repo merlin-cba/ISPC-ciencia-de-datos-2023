@@ -11,14 +11,6 @@ from data_processor import DataProcessor
 from demand_predictor import DemandPredictor
 from data_plotter import DataPlotter
 
-from data_processor import DataProcessor
-from demand_predictor import DemandPredictor
-from data_plotter import DataPlotter
-
-from data_processor import DataProcessor
-from demand_predictor import DemandPredictor
-from data_plotter import DataPlotter
-
 def main():
     # Inicializar DataProcessor
     data_processor = DataProcessor()
