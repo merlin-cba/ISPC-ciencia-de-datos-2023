@@ -11,33 +11,53 @@ from data_processor import DataProcessor
 from demand_predictor import DemandPredictor
 from data_plotter import DataPlotter
 
-# Cargar el modelo entrenado
-model = load('model.pkl')
+from data_processor import DataProcessor
+from demand_predictor import DemandPredictor
+from data_plotter import DataPlotter
 
-# Datos de entrada para la predicción
-data_file = 'datos.csv'  # Cambiar por el nombre y ubicación de tus datos
-data_processor = DataProcessor(data_file)
-data_processor.load_data()
-data_processor.transform_data()
+from data_processor import DataProcessor
+from demand_predictor import DemandPredictor
+from data_plotter import DataPlotter
 
-# Crear una instancia de DemandPredictor
-demand_predictor = DemandPredictor(data_processor)
+def main():
+    # Inicializar DataProcessor
+    data_processor = DataProcessor()
+    data_processor.load_data("datos.csv")
+    data_processor.transform_data()
 
-# Realizar la predicción
-predictions = demand_predictor.predict_demand()
+    # Dividir los datos en entrenamiento y prueba
+    data_train, data_test = data_processor.split_data("2022-01-01", "2022-12-31")
 
-# Crear una instancia de DataPlotter
-plotter = DataPlotter(data_processor.dates, data_processor.demand, predictions)
+    # Crear instancia de DemandPredictor
+    demand_predictor = DemandPredictor()
+    demand_predictor.load_model("model.pkl")
 
-# Graficar los datos y las predicciones
-plotter.plot_data()
+    # Predecir demanda utilizando regresión lineal
+    X_train = data_train[['demand', 'fecha']]
+    y_train = data_train['demand']
+    y_pred_linear = demand_predictor.predict_linear(X_train)
 
-# Calcular el error cuadrático medio (MSE)
-mse = plotter.calculate_mse()
+    # Predecir demanda utilizando red neuronal
+    X_test = data_test[['demand', 'fecha']]
+    y_pred_neural = demand_predictor.predict_neural(X_test)
 
-# Calcular la precisión (R2 score)
-r2 = plotter.calculate_r2_score()
+    # Calcular métricas de error
+    mse_linear = demand_predictor.calculate_mse(y_train, y_pred_linear)
+    mse_neural = demand_predictor.calculate_mse(data_test['demand'], y_pred_neural)
 
-# Imprimir el error cuadrático medio y la precisión
-print(f'Error cuadrático medio (MSE): {mse:.2f}')
-print(f'Precisión (R2 score): {r2:.2f}')
+    # Calcular precisión de las predicciones
+    accuracy_linear = demand_predictor.calculate_accuracy(y_train, y_pred_linear)
+    accuracy_neural = demand_predictor.calculate_accuracy(data_test['demand'], y_pred_neural)
+
+    # Graficar los datos y las predicciones
+    data_plotter = DataPlotter()
+    data_plotter.plot_data(data_test.index, data_test['demand'], y_pred_linear, y_pred_neural)
+
+    # Mostrar métricas de error y precisión
+    print("MSE (Regresión lineal):", mse_linear)
+    print("MSE (Red neuronal):", mse_neural)
+    print("Precisión (Regresión lineal):", accuracy_linear)
+    print("Precisión (Red neuronal):", accuracy_neural)
+
+if __name__ == '__main__':
+    main()
