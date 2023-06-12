@@ -5,41 +5,39 @@ Spyder Editor
 This is a temporary script file.
 """
 
-import pickle
-from ElectricityDemand import ElectricityDemand
-
-# Ruta del archivo de datos
-data_file = "data.csv"
-
-# Ruta del archivo del modelo entrenado
-model_file = "model.pkl"
-
-# Fechas para dividir los datos
-start_date_train = "2022-01-01"
-end_date_train = "2022-01-31"
-end_date_validation = "2022-02-28"
-
-# Crear instancia de ElectricityDemand
-electricity_demand = ElectricityDemand(data_file)
-electricity_demand.load_data()
-electricity_demand.transform_data()
-
-# Dividir los datos
-datos_train, datos_val, datos_test = electricity_demand.split_data(start_date_train, end_date_train, end_date_validation)
+import pandas as pd
+from joblib import load
+from data_processor import DataProcessor
+from demand_predictor import DemandPredictor
+from data_plotter import DataPlotter
 
 # Cargar el modelo entrenado
-with open(model_file, "rb") as file:
-    model = pickle.load(file)
+model = load('model.pkl')
 
-# Predecir con el modelo
-X_test = datos_test.drop("target", axis=1).values
-y_pred = model.predict(X_test)
+# Datos de entrada para la predicción
+data_file = 'datos.csv'  # Cambiar por el nombre y ubicación de tus datos
+data_processor = DataProcessor(data_file)
+data_processor.load_data()
+data_processor.transform_data()
 
-# Evaluar el rendimiento (puedes adaptar esta parte según tus necesidades)
-mae = mean_absolute_error(datos_test["target"].values, y_pred)
-rmse = mean_squared_error(datos_test["target"].values, y_pred, squared=False)
+# Crear una instancia de DemandPredictor
+demand_predictor = DemandPredictor(data_processor)
 
-print("MAE:", mae)
-print("RMSE:", rmse)
-data_plotter = DataPlotter(datos_test, y_pred)
-data_plotter.plot_predictions()
+# Realizar la predicción
+predictions = demand_predictor.predict_demand()
+
+# Crear una instancia de DataPlotter
+plotter = DataPlotter(data_processor.dates, data_processor.demand, predictions)
+
+# Graficar los datos y las predicciones
+plotter.plot_data()
+
+# Calcular el error cuadrático medio (MSE)
+mse = plotter.calculate_mse()
+
+# Calcular la precisión (R2 score)
+r2 = plotter.calculate_r2_score()
+
+# Imprimir el error cuadrático medio y la precisión
+print(f'Error cuadrático medio (MSE): {mse:.2f}')
+print(f'Precisión (R2 score): {r2:.2f}')
