@@ -4,122 +4,71 @@ import pandas as pd
 import numpy as np
 import pickle
 import matplotlib.pyplot as plt
-from sklearn.linear_model import Ridge
-from sklearn.metrics import mean_absolute_error, mean_squared_error
-from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.neural_network import MLPRegressor
+from sklearn.metrics import mean_squared_error, r2_score
 from typing import Tuple
 
-
 class DataProcessor:
-
-    def __init__(self, data_file: str):
-        self._data_file = data_file
-        self._datos = None
+    def __init__(self, data_file):
+        self.data_file = data_file
+        self.data = None
     
-    def load_data(self) -> None:
-        self._datos = pd.read_csv(self._data_file)
+    def load_data(self):
+        self.data = pd.read_csv(self.data_file)
     
-    def transform_data(self) -> None:
-        raise NotImplementedError("Subclasses must implement transform_data method.")
+    def transform_data(self):
+        self.data['Fecha'] = pd.to_datetime(self.data['Fecha'])
+        self.data = self.data.set_index('Fecha')
+        self.data = self.data.asfreq('60min')
+        self.data = self.data.sort_index()
     
-    def split_data(self, start_date_train: str, end_date_train: str, 
-                   end_date_validation: str) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-        raise NotImplementedError("Subclasses must implement split_data method.")
-
-
-class ElectricityDemand(DataProcessor):
-
-    def __init__(self, data_file: str):
-        super().__init__(data_file)
-    
-    def transform_data(self) -> None:
-        self._datos['Fecha'] = pd.to_datetime(self._datos['Fecha'])
-        self._datos = self._datos.set_index('Fecha')
-        self._datos = self._datos.asfreq('60min')
-        self._datos = self._datos.sort_index()
-    
-    def split_data(self, start_date_train: str, end_date_train: str, 
-                   end_date_validation: str) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-        self._datos = self._datos.loc[start_date_train:end_date_validation]
-        self._datos_train = self._datos.loc[:end_date_train]
-        self._datos_val = self._datos.loc[end_date_train:end_date_validation]
-        self._datos_test = self._datos.loc[end_date_validation:]
-        return self._datos_train, self._datos_val, self._datos_test
+    def split_data(self, train_start_date, train_end_date, test_start_date, test_end_date):
+        train_data = self.data[(self.data.index >= train_start_date) & (self.data.index <= train_end_date)]
+        test_data = self.data[(self.data.index >= test_start_date) & (self.data.index <= test_end_date)]
+        return train_data, test_data
 
 
 class DemandPredictor:
-
-    def __init__(self):
-        self._model = None
+    def __init__(self, model_file):
+        self.model_file = model_file
+        self.linear_model = None
+        self.neural_network = None
     
-    def train(self, X_train: np.ndarray, y_train: np.ndarray) -> None:
-        raise NotImplementedError("Subclasses must implement train method.")
+    def train_linear_model(self, X_train, y_train):
+        self.linear_model = LinearRegression()
+        self.linear_model.fit(X_train, y_train)
     
-    def predict(self, X: np.ndarray) -> np.ndarray:
-        raise NotImplementedError("Subclasses must implement predict method.")
+    def train_neural_network(self, X_train, y_train):
+        self.neural_network = MLPRegressor(hidden_layer_sizes=(3,), random_state=1)
+        self.neural_network.fit(X_train, y_train)
     
-    def evaluate(self, X: np.ndarray, y_true: np.ndarray) -> Tuple[float, float]:
-        y_pred = self.predict(X)
-        mae = mean_absolute_error(y_true, y_pred)
-        rmse = np.sqrt(mean_squared_error(y_true, y_pred))
-        return mae, rmse
-
-
-class RidgeModelTrainer(DemandPredictor):
-
-    def __init__(self, alpha: float = 1.0):
-        super().__init__()
-        self._alpha = alpha
+    def predict_linear(self, X):
+        return self.linear_model.predict(X)
     
-    def train(self, X_train: np.ndarray, y_train: np.ndarray) -> None:
-        self._model = Ridge(alpha=self._alpha)
-        self._model.fit(X_train, y_train)
+    def predict_neural_network(self, X):
+        return self.neural_network.predict(X)
     
-    def predict(self, X: np.ndarray) -> np.ndarray:
-        return self._model.predict(X)
+    def evaluate_model(self, y_true, y_pred):
+        mse = mean_squared_error(y_true, y_pred)
+        r2 = r2_score(y_true, y_pred)
+        return mse, r2
 
 class DataPlotter:
-    def __init__(self, datos_test, y_pred):
-        self.datos_test = datos_test
-        self.y_pred = y_pred
+    def __init__(self):
+        self.data = None
     
-    def plot_predictions(self):
-        fig, ax = plt.subplots(figsize=(12, 6))
-        ax.plot(self.datos_test.index, self.datos_test["target"], label="Datos reales")
-        ax.plot(self.datos_test.index, self.y_pred, label="Predicciones")
-        ax.set_xlabel("Fecha")
-        ax.set_ylabel("Demanda eléctrica")
-        ax.set_title("Comparación de datos reales y predicciones")
-        ax.legend()
+    def load_data(self, data):
+        self.data = data
+    
+    def plot_data(self):
+        plt.plot(self.data.index, self.data['Demanda'], label='Datos reales')
+        plt.plot(self.data.index, self.data['Prediccion_Lineal'], label='Predicción Lineal')
+        plt.plot(self.data.index, self.data['Prediccion_Neuronal'], label='Predicción Neuronal')
+        plt.xlabel('Fecha')
+        plt.ylabel('Demanda')
+        plt.title('Predicción de Demanda')
+        plt.legend()
         plt.show()
 
-# Ejemplo de uso
-data_file = "data.csv"
-start_date_train = "2022-01-01"
-end_date_train = "2022-01-31"
-end_date_validation = "2022-02-28"
-model_file = "model.pkl"
 
-# Crear instancia de ElectricityDemand
-electricity_demand = ElectricityDemand(data_file)
-electricity_demand.load_data()
-electricity_demand.transform_data()
-
-# Dividir los datos
-datos_train, datos_val, datos_test = electricity_demand.split_data(start_date_train, end_date_train, end_date_validation)
-
-# Cargar el modelo entrenado
-with open(model_file, "rb") as f:
-    trained_model = pickle.load(f)
-
-# Usar el modelo entrenado para predecir
-X = datos_test.drop("target", axis=1).values
-y_true = datos_test["target"].values
-y_pred = trained_model.predict(X)
-
-# Evaluar el rendimiento
-mae = mean_absolute_error(y_true, y_pred)
-rmse = np.sqrt(mean_squared_error(y_true, y_pred))
-
-print("MAE:", mae)
-print("RMSE:", rmse)
