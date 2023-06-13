@@ -197,7 +197,7 @@ Para la implementacion de los login de reconocimiento facial, se trabajajó en l
 ![](https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023/blob/main/images/comparacionModelos.jpg)
 
 ### librería Face Recognition 
-Este modelo de login facial utiliza La librería Face Recognition de Python para reconocer y manipular caras en imágenes. 
+Este modelo de login facial utiliza La librería **Face Recognition** de Python para reconocer y manipular caras en imágenes. 
 Está construida utilizando el reconocimiento facial de última generación de dlib, 
 una biblioteca de aprendizaje automático y visión por computadora, con aprendizaje profundo. 
 El modelo tiene una precisión del 99.38% en el benchmark Labeled Faces in the Wild, 
@@ -215,7 +215,7 @@ Pasos:
 4. Verificar la similitud entre la imagen de inicio  de sesión con las capturadas ene l registro del usuario/a. 
 
 ### biblioteca MTCNN
-Este modelo de login facial utiliza la biblioteca MTCNN y significa Redes Convolucionales en Cascada Multitarea. 
+Este modelo de login facial utiliza la **biblioteca MTCNN** y significa Redes Convolucionales en Cascada Multitarea. 
 Es un marco desarrollado para la detección y alineación de rostros. El proceso consta de tres etapas de redes 
 convolucionales capaces de reconocer rostros y ubicaciones de puntos de referencia como ojos, nariz y boca (pasa de una 
 CNN poco profunda a una más compleja).
