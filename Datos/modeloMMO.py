@@ -33,9 +33,13 @@ class DemandPredictor:
     def __init__(self, model_file):
         self.model_file = model_file
         self.linear_model = None
-        self.neural_network = None
+        self.neural_model = None
     
-    def train_linear_model(self, X_train, y_train):
+    def load_models(self):
+        with open(self.model_file, 'rb') as f:
+            self.linear_model, self.neural_model = pickle.load(f)
+    
+   def train_linear_model(self, X_train, y_train):
         self.linear_model = LinearRegression()
         self.linear_model.fit(X_train, y_train)
     
