@@ -5,7 +5,7 @@ from sklearn.neural_network import MLPRegressor
 class DemandPredictor:
     def __init__(self):
         self.linear_model = LinearRegression()
-        self.neural_network = MLPRegressor(hidden_layer_sizes=(3,), random_state=42)
+        self.neural_network = MLPRegressor(hidden_layer_sizes=(3,), random_state=42, max_iter=5000)
         self.loaded_model = False
 
     def load_model(self, model_file):
