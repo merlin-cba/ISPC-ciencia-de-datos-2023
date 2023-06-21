@@ -116,17 +116,17 @@ class DataProcessor:
             return None, None
 
 
-# Crear una instancia del DataProcessor y cargar los datos
-data_processor = DataProcessor('model\completo_ok.csv')
-data_processor.load_data()
-
-# Dividir los datos en conjunto de entrenamiento y prueba
-X_train, X_test, y_train, y_test = None,None,None,None
-train_data, val_data, test_data = data_processor.split_data( '2021-07-01 00:00:00', '2022-05-01 23:00:00' , '2022-03-31 00:00:00' )
-
-# Crear una instancia del predictor y entrenar el modelo
-# predictor = RandomForestPredictor(train_data)
-metric, predictions = data_processor.train(train_data)
-
-# Realizar predicciones en el conjunto de prueba
-y_pred = data_processor.predict('2023-02-02 14:00')
+## Crear una instancia del DataProcessor y cargar los datos
+#data_processor = DataProcessor('model\completo_ok.csv')
+#data_processor.load_data()
+#
+## Dividir los datos en conjunto de entrenamiento y prueba
+#X_train, X_test, y_train, y_test = None,None,None,None
+#train_data, val_data, test_data = data_processor.split_data( '2021-07-01 00:00:00', '2022-05-01 23:00:00' , '2022-03-31 00:00:00' )
+#
+## Crear una instancia del predictor y entrenar el modelo
+## predictor = RandomForestPredictor(train_data)
+#metric, predictions = data_processor.train(train_data)
+#
+## Realizar predicciones en el conjunto de prueba
+#y_pred = data_processor.predict('2023-02-02 14:00')

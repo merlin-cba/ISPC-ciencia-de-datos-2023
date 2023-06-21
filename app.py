@@ -4,7 +4,9 @@ from model.predictor import DataProcessor
 
 
 # Inicializar la aplicacion
-app = Flask(__name__)
+app = Flask(__name__, 
+            template_folder='src/templates', 
+            static_folder='src/static')
 
 
 @app.before_request
@@ -55,6 +57,7 @@ def prediccion(valor):
 
 @app.route('/train', methods=['GET', 'POST'])
 def train():
+    # Link de la hoja https://docs.google.com/spreadsheets/d/1RrPyr4e3RGfm1XWAv-uoNHv63HBXgXwJanmetuLV1V0/edit#gid=0
     if request.method == 'POST':
         input_link = str(request.form['input-text']) # Obtener el valor del formulario
         result = carga_link(input_link) # función de prediccion
