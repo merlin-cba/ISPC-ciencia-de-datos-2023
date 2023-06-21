@@ -54,23 +54,44 @@ def predict():
 def prediccion(valor):
     return valor * 2
 
-
 @app.route('/train', methods=['GET', 'POST'])
 def train():
-    # Link de la hoja https://docs.google.com/spreadsheets/d/1RrPyr4e3RGfm1XWAv-uoNHv63HBXgXwJanmetuLV1V0/edit#gid=0
     if request.method == 'POST':
-        input_link = str(request.form['input-text']) # Obtener el valor del formulario
-        result = carga_link(input_link) # función de prediccion
-        return str(result)
+        if 'train-btn' in request.form:
+            result, data_processor = carga_link()
+            train_data, val_data, test_data = data_processor.split_data('2021-07-01 00:00:00', '2022-05-01 23:00:00', '2022-03-31 00:00:00')
+            metric, predictions = train_model(data_processor, train_data)  # Pasa data_processor como argumento adicional
+         
+            return str(result), str(predictions)
+        
     return render_template('pages/train.html', data={
-        'titulo': 'Entrenamiento del modelo', # Titulo de la pestaña
+        'titulo': 'Entrenamiento del modelo',
         'descripcion': 'En esta sección podés...',
-        })
+    })
 
-def carga_link(valor):
-    return valor
+def carga_link():
+    data_processor = DataProcessor('model/completo_ok.csv')
+    result = data_processor.load_data()
+    return result, data_processor
 
+def train_model(data_processor, train_data):
+    metric, predictions = data_processor.train(train_data)
+    return metric, predictions
 
+@app.route('/entrenamiento', methods=['POST'])
+def entrenamiento():
+    data_processor = DataProcessor('model/completo_ok.csv')
+    data_processor.load_data()
+    train_data, val_data, test_data = data_processor.split_data('2021-07-01 00:00:00', '2022-05-01 23:00:00', '2022-03-31 00:00:00')
+    metric, predictions = data_processor.train(train_data)
+    return render_template('pages/result.html', metric=metric, predictions=predictions)
+
+@app.route('/prediccion', methods=['POST'])
+def prediccion():
+    data_processor = DataProcessor('model/completo_ok.csv')
+    data_processor.load_data()
+    y_pred = data_processor.predict('2023-02-02 14:00')
+    return str(y_pred)
 
 @app.route('/team')
 def team():

@@ -1,38 +1,34 @@
 {% extends './template/layout.html' %}
 
-{% block title %}{{ data.titulo }}{% endblock %}
-
 {% block content %}
-<h1>{{ data.titulo }}</h1>
-<p>{{ data.descripcion }}</p>
+  <!-- Contenido de la página -->
+  <form id="form-train" method="POST">
+    <!-- Resto de los campos del formulario -->
+    <input type="hidden" name="train-btn" value="1">
+    <button type="submit" id="submit-btn">Entrenar modelo</button>
+  </form>
 
-<form id="my-form" method="POST">
-    <label for="input-text">Ingrese su link de Google SpreadSheet:</label>
-    <input type="text" name="input-text" id="input-text">
-    <button type="submit" id="submit-btn">Enviar</button>
-</form>
-
-<div id="result-container"></div>
-
-<!-- Agregar script de AJAX con jQuery -->
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('form').submit(function(event) {
-      event.preventDefault(); // Prevenir envío por defecto
-      $.ajax({
-        type: 'POST',
-        url: '{{ url_for("train") }}', // URL de Flask
-        data: $('form').serialize(), // Datos del formulario
-        success: function(response) { // Función en caso de éxito
-          $('#result-container').html(response); // Mostrar respuesta en el contenedor
-        },
-        error: function(error) { // Función en caso de error
-          console.log(error);
-        }
+  <textarea id="result-textarea" rows="10" cols="50" readonly></textarea>
+  
+  <script>
+    // JavaScript adicional
+    $(function() {
+      $('#form-train').submit(function(e) {
+        e.preventDefault();  // Evitar el envío del formulario por defecto
+        $.ajax({
+          url: '{{ url_for("train") }}',  // URL de Flask para iniciar el entrenamiento
+          type: 'POST',
+          data: $(this).serialize(),
+          success: function(response) {
+            // Lógica para manejar la respuesta del servidor
+            $('#result-textarea').val(response);
+          },
+          error: function(error) {
+            // Lógica para manejar errores
+            console.error(error);
+          }
+        });
       });
     });
-  });
-</script>
-
-
+  </script>
 {% endblock %}
