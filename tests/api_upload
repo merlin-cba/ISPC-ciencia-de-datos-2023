@@ -1,0 +1,37 @@
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+ALLOWED_EXTENSIONS = {'txt', 'csv', 'xls'}
+MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16 MB
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    # Verificar que se envió un archivo
+    if 'file' not in request.files:
+        return jsonify({'error': 'No se encontró ningún archivo en la solicitud'}), 400
+
+    file = request.files['file']
+
+    # Verificar que el archivo tiene una extensión permitida
+    if not allowed_file(file.filename):
+        return jsonify({'error': 'Tipo de archivo no permitido'}), 400
+
+    # Verificar que el archivo no excede el tamaño máximo permitido
+    if not allowed_file_size(file):
+        return jsonify({'error': 'El archivo es demasiado grande'}), 400
+
+    # Guardar el archivo
+    file.save(file.filename)
+
+    return jsonify({'message': 'Archivo guardado correctamente'})
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def allowed_file_size(file):
+    return int(request.content_length) <= MAX_CONTENT_LENGTH
+
+if __name__ == '__main__':
+    app.run()
+

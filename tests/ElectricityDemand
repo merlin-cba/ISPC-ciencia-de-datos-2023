@@ -1,0 +1,19 @@
+import unittest
+import pandas as pd
+from my_module import ElectricityDemand
+
+class TestElectricityDemand(unittest.TestCase):
+    
+    def setUp(self):
+        self.data_file = 'electricity_data.csv'
+        self.elec_demand = ElectricityDemand(self.data_file)
+    
+    def test_load_data(self):
+        self.elec_demand.load_data()
+        self.assertIsInstance(self.elec_demand._datos, pd.DataFrame)
+    
+    def test_transform_data(self):
+        self.elec_demand.load_data()
+        self.elec_demand.transform_data()
+        self.assertIsInstance(self.elec_demand._datos.index, pd.DatetimeIndex)
+        self.assertEqual(self.elec_demand._datos.index.freq, '60T')

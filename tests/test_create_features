@@ -1,0 +1,12 @@
+def test_create_features():
+    data_processor = DataProcessor('datos.csv')
+    data_processor.load_data()
+    data_processor.transform_data()
+    demand_predictor = DemandPredictor(data_processor.get_datos())
+    features = demand_predictor.create_features(lag_demand=3, window_size=4)
+    assert isinstance(features, pd.DataFrame)
+    assert features.shape == (len(data_processor.get_datos()) - 3 - 4 + 1, 13)
+    assert all([col in features.columns for col in ['y', 'y_lag1', 'y_lag2', 'y_lag3',
+                                                    'y_roll1_mean', 'y_roll1_max', 'y_roll1_min',
+                                                    'y_roll2_mean', 'y_roll2_max', 'y_roll2_min',
+                                                    'y_roll3_mean', 'y_roll3_max', 'y_roll3_min']])
