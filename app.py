@@ -1,13 +1,15 @@
 # Traemos las librerias
 from flask import Flask, render_template, request, url_for, redirect, jsonify
+import os
 from model.predictor import DataProcessor
-
+from model.trained.modelPredictFuture import Evaluador, coberturaIntervalo, Predictor, formatoFecha, GoogleSheetsReader
 
 # Inicializar la aplicacion
 app = Flask(__name__, 
             template_folder='src/templates', 
             static_folder='src/static')
 
+metrica_prediccion = 0
 
 @app.before_request
 def before_request():
@@ -38,31 +40,45 @@ def service():
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    instancia = DataProcessor('https://docs.google.com/spreadsheets/d/e/2PACX-1vS2YjVwU3IQAo2ITTvtN6rYqZjHiRYAiX0nH2wcRtnKzkbusE6OHWzkpyq8l6R8pybap_x4MhsJKuAK/pubhtml?gid=0&single=true')
+    predicciones = None
+
     if request.method == 'POST':
-        input_number = int(request.form['input-number']) # Obtener el valor del formulario
-        result = prediccion(input_number) # función de prediccion
-        return str(result)
-    
+        input_link = request.form['input-link']
+
+        reader = GoogleSheetsReader(input_link)
+        df = reader.read()
+
+        processor = formatoFecha(df)
+        df = processor.process_dates()
+
+        model_file_path = os.path.join(os.path.dirname(__file__), 'model', 'trained', 'model.pkl')
+        predictor = Predictor(model_file = model_file_path)
+
+        df = df.dropna(subset=['Demanda'])
+
+        df['Demanda'] = df['Demanda'].fillna(0)
+
+        steps = 10
+        predicciones = predictor.predict_future(data=df['Demanda'].astype(float), steps=steps)
+        return str(predicciones)
+
     return render_template('pages/predict.html', data={
         'titulo': 'Predicción del consumo eléctrico',
         'descripcion': 'Ingrese un valor para hacer la predicción.',
-        'prediccion' : instancia.load_data()
+        'link': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTGFdnehaioXiuJbzV5zVtyu3jnt5z5-wtNgqJ_WrcfOdq90Qg_j-esIsxRlBq_NDEvr3JKfNkdBRFw/pubhtml',
+        'prediccion' : predicciones ,
     })
-
-# Función de predicción de ejemplo
-def prediccion(valor):
-    return valor * 2
 
 @app.route('/train', methods=['GET', 'POST'])
 def train():
+    
     if request.method == 'POST':
         if 'train-btn' in request.form:
             result, data_processor = carga_link()
             train_data, val_data, test_data = data_processor.split_data('2021-07-01 00:00:00', '2022-05-01 23:00:00', '2022-03-31 00:00:00')
-            metric, predictions = train_model(data_processor, train_data)  # Pasa data_processor como argumento adicional
-         
-            return str(result), str(predictions)
+            metric, predictions = train_model(data_processor, train_data)  
+            
+            return str(metric)
         
     return render_template('pages/train.html', data={
         'titulo': 'Entrenamiento del modelo',
@@ -78,20 +94,9 @@ def train_model(data_processor, train_data):
     metric, predictions = data_processor.train(train_data)
     return metric, predictions
 
-@app.route('/entrenamiento', methods=['POST'])
-def entrenamiento():
-    data_processor = DataProcessor('model/completo_ok.csv')
-    data_processor.load_data()
-    train_data, val_data, test_data = data_processor.split_data('2021-07-01 00:00:00', '2022-05-01 23:00:00', '2022-03-31 00:00:00')
-    metric, predictions = data_processor.train(train_data)
-    return render_template('pages/result.html', metric=metric, predictions=predictions)
-
-@app.route('/prediccion', methods=['POST'])
-def prediccion():
-    data_processor = DataProcessor('model/completo_ok.csv')
-    data_processor.load_data()
-    y_pred = data_processor.predict('2023-02-02 14:00')
-    return str(y_pred)
+# Función de predicción de ejemplo
+def realizar_prediccion(valor):
+    return valor * metrica_prediccion
 
 @app.route('/team')
 def team():
@@ -115,11 +120,9 @@ def team():
     ]
     return render_template('pages/team.html', team_members=team_members)
 
-
 @app.errorhandler(404)
 def pagina_no_encontrada(error):
     return render_template('./errors/404.html'), 404
-
 
 # Si estamos en el archivo principal
 if __name__ == '__main__':
