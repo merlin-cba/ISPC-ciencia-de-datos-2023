@@ -27,7 +27,7 @@ Equipo **3**:
 
 **Sección VI** — Antecedentes
 
-
+**Sección VII** — Instalacion de la app
 
 
 ## Sección I — Introducción
