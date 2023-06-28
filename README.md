@@ -253,3 +253,6 @@ https://www.sciencedirect.com/science/article/abs/pii/S0306261917313429
 - The results show that using the gradient boosting machine model improved the R‐squared prediction accuracy and the CV(RMSE) in more than 80 percent of the cases, when compared to an industry best practice model that is based on piecewise linear regression, and to a random forest algorithm.
 https://www.sciencedirect.com/science/article/abs/pii/S0378778817320844
 
+## Sección VII — Instalacion de la app
+
+Para la insalacion de esta app es necesario seguir el siguiente procedimiento:
