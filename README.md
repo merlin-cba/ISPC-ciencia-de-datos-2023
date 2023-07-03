@@ -261,7 +261,7 @@ Para la insalacion de esta app es necesario seguir el siguiente procedimiento:
 python -m venv c:\ruta\al\entorno\virtual y activarlo c:\ruta\al\entorno\virtual\scripts\activate.bat
 
 ### 2. Descargar el repositorio
-
+Clonar https://github.com/merlin-cba/ISPC-ciencia-de-datos-2023.git
 
 ### 3. Seleccionar el Python Interpreter 
 Python 3.9 o más
