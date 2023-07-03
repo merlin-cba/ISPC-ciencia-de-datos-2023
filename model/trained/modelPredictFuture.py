@@ -112,7 +112,8 @@ class Evaluador:
             y_pred = predicciones
         )
         return error_mse
-        
+
+'''
     
 
 url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTGFdnehaioXiuJbzV5zVtyu3jnt5z5-wtNgqJ_WrcfOdq90Qg_j-esIsxRlBq_NDEvr3JKfNkdBRFw/pubhtml'
@@ -159,3 +160,6 @@ print(f"La demanda de los próximos {steps} días va a ser:")
 print("=============================================")
 for i, prediccion in enumerate(predicciones):
     print(f'Día {i+1}: {prediccion}')
+
+
+'''
