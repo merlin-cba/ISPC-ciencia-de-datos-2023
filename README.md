@@ -274,4 +274,4 @@ Ejecutar el archivo app.py y cliquear, con la tecla CTRL presionada, sobre lo ru
 
 a. Para **realizar una predicción** del consumo elétrico ir a http://127.0.0.1:5000/predict. 
 
-b. Para **entrenar un modelo nuevo** ir a hhttp://127.0.0.1:5000/train.
+b. Para **entrenar un modelo nuevo** ir a http://127.0.0.1:5000/train.
