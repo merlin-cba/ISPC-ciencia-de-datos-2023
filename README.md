@@ -257,14 +257,14 @@ https://www.sciencedirect.com/science/article/abs/pii/S0378778817320844
 
 Para la insalacion de esta app es necesario seguir el siguiente procedimiento:
 
-### 1. Crear un entorno virtual nuevo###
+### 1. Crear un entorno virtual nuevo
 python -m venv c:\ruta\al\entorno\virtual y activarlo c:\ruta\al\entorno\virtual\scripts\activate.bat
 
 ### 2. Descargar el repositorio
 
 
 ### 3. Seleccionar el Python Interpreter 
-3.9 o más
+Python 3.9 o más
 
 ### 4. Instalar las librerias utilizadas en el proyecto 
 pip install -r requirements.txt en el entorno virtual antes activado
