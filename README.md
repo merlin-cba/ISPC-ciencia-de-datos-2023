@@ -256,8 +256,9 @@ https://www.sciencedirect.com/science/article/abs/pii/S0378778817320844
 ## Sección VII — Instalacion de la app
 
 Para la insalacion de esta app es necesario seguir el siguiente procedimiento:
-###1. Crear un entorno virtual nuevo
- (python -m venv c:\ruta\al\entorno\virtual) y activarlo (c:\ruta\al\entorno\virtual\scripts\activate.bat).
+###1. Crear un entorno virtual nuevo###
+
+python -m venv c:\ruta\al\entorno\virtual y activarlo c:\ruta\al\entorno\virtual\scripts\activate.bat
 
 ###2. Descargar el repositorio
 
