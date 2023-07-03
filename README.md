@@ -256,3 +256,21 @@ https://www.sciencedirect.com/science/article/abs/pii/S0378778817320844
 ## Sección VII — Instalacion de la app
 
 Para la insalacion de esta app es necesario seguir el siguiente procedimiento:
+###1. Crear un entorno virtual nuevo
+ (python -m venv c:\ruta\al\entorno\virtual) y activarlo (c:\ruta\al\entorno\virtual\scripts\activate.bat).
+
+###2. Descargar el repositorio
+
+
+###3. Seleccionar el Python Interpreter 
+3.9 o más
+
+###4. Instalar las librerias utilizadas en el proyecto 
+pip install -r requirements.txt en el entorno virtual antes activado
+
+###5. Ejecutar
+ejecutar el archivo app.py y cliquear, con la tecla CTRL presionada, sobre lo ruta local que se muestra (http://127.0.0.1:5000)
+
+a. Para **realizar una predicción** del consumo elétrico ir a http://127.0.0.1:5000/predict. 
+
+b. Para **entrenar un modelo nuevo** ir a hhttp://127.0.0.1:5000/train.
