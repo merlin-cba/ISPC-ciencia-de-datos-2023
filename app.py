@@ -84,7 +84,7 @@ def train():
             train_data, val_data, test_data = data_processor.split_data('2021-07-01 00:00:00', '2022-05-01 23:00:00', '2022-03-31 00:00:00')
             metric, predictions = train_model(data_processor, train_data)  
             
-            return f'Modelo entrenado. MSE: {metric:.0f}'
+            return f'Modelo entrenado.'
         
     return render_template('pages/train.html', data={
         'titulo': 'Entrenamiento del modelo',
