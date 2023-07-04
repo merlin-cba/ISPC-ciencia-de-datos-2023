@@ -1,15 +1,41 @@
 {% extends './template/layout.html' %}
 
-{% block content %}
-  <!-- Contenido de la página -->
-  <form id="form-train" method="POST">
-    <!-- Resto de los campos del formulario -->
-    <input type="hidden" name="train-btn" value="1">
-    <button type="submit" id="submit-btn">Entrenar modelo</button>
-  </form>
+{% block title %}{{ data.titulo }}{% endblock %}
 
-  <textarea id="result-textarea" rows="10" cols="50" readonly></textarea>
+{% block content %}
+
+<div class="container">
+  <h1>{{ data.titulo }}</h1>
+  <p>{{ data.descripcion }}</p>
+  <p>Puede usar el siguiente link o cargar sus propios datos, siguiendo el formato presentado en:
+    <div><span id="link">{{ data.link }}</span></div>
+  <button onclick="copyLink()">Copiar</button></p>
+
+
+<form id="form-train" method="POST">
+    <label for="input-number">Ingrese un valor para probar la funcion:</label>
+    <input type="text" name="input-link" placeholder="Ingrese un enlace">
+    <input type="hidden" name="train-btn" value="1">  
+    <button type="submit" id="submit-btn">Entrenar modelo</button>
+</form>
+
+
+<textarea id="result-textarea" rows="5" cols="50" readonly></textarea>
   
+
+<script>
+  function copyLink() {
+    var linkText = document.getElementById("link").innerText;
+    var tempInput = document.createElement("input");
+    tempInput.value = linkText;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    alert("¡El enlace se ha copiado al portapapeles!");
+  }
+</script>
+
   <script>
     // JavaScript adicional
     $(function() {

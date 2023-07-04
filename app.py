@@ -77,20 +77,31 @@ def predict():
 def train():
     
     if request.method == 'POST':
+        
+
         if 'train-btn' in request.form:
             result, data_processor = carga_link()
             train_data, val_data, test_data = data_processor.split_data('2021-07-01 00:00:00', '2022-05-01 23:00:00', '2022-03-31 00:00:00')
             metric, predictions = train_model(data_processor, train_data)  
             
-            return str(metric)
+            return f'Modelo entrenado. MSE: {metric:.0f}'
         
     return render_template('pages/train.html', data={
         'titulo': 'Entrenamiento del modelo',
-        'descripcion': 'En esta sección podés...',
+        'descripcion': 'En esta sección podés entrenar un modelo',
+        'link': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTGFdnehaioXiuJbzV5zVtyu3jnt5z5-wtNgqJ_WrcfOdq90Qg_j-esIsxRlBq_NDEvr3JKfNkdBRFw/pubhtml',
     })
 
 def carga_link():
-    data_processor = DataProcessor('model/datos/completo_ok.csv')
+    input_link = request.form['input-link']
+
+    reader = GoogleSheetsReader(input_link)
+    df = reader.read()
+
+    processor = formatoFecha(df)
+    df = processor.process_dates()
+
+    data_processor = DataProcessor(df)
     result = data_processor.load_data()
     return result, data_processor
 

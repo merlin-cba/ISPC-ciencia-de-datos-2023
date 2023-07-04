@@ -14,23 +14,23 @@ from skforecast.model_selection import backtesting_forecaster
 from skforecast.utils import save_forecaster
 from skforecast.utils import load_forecaster
 
+"""en app.py utiliza las clases formatoFecha, GoogleSheetsReader del archivo model.trained.modelPredictFuture"""
+
 
 class DataProcessor:
     def __init__(self, data_file):
         self.data_file = data_file
-        #self.data = None
+      
+        
     
     def load_data(self):
         try:
-            self.data = pd.read_csv(self.data_file)
-            self.data['Fecha'] = pd.to_datetime(self.data['Fecha'])
-            self.data = self.data.set_index('Fecha')
-            self.data = self.data.asfreq('60min')
-            self.data = self.data.sort_index()
+            self.data = self.data_file
             print('Cargo correctamente')
             return self.data
         except:
             print('Error: Data file not found.')
+
     
     def split_data(self, start_date_train, end_date_train, end_date_val):
         try:
@@ -45,7 +45,7 @@ class DataProcessor:
             print("Error al dividir datos")
             return None, None, None, None
 
-    def train(self, datos):
+    def train(self, df):
         try:
             self.forecaster = ForecasterAutoreg(
                 regressor = LGBMRegressor(),
@@ -54,7 +54,7 @@ class DataProcessor:
             
             self.metric, self.predictions = backtesting_forecaster(
                             forecaster         = self.forecaster,
-                            y                  = datos['Demanda']['2021-10-01 00:00':'2021-11-02 23:00'],
+                            y                  = df.Demanda['2021-10-01 00:00':'2021-11-02 23:00'].astype(float),
                             initial_train_size = 45,
                             fixed_train_size   = False,
                             steps              = 7,
@@ -65,7 +65,7 @@ class DataProcessor:
                             verbose            = False
                     )
             
-            self.forecaster.fit(datos['Demanda']['2021-10-01 00:00':'2021-11-02 23:00'])  # Ajustar el modelo
+            self.forecaster.fit(df.Demanda['2021-10-01 00:00':'2021-11-02 23:00'].astype(float))  # Ajustar el modelo
             
             print('Se entreno correctamente')
             print(self.metric)
